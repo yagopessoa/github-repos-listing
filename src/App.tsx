@@ -103,13 +103,13 @@ function App() {
       )}
       <Footer>
         Coded by{' '}
-        <a href={PROFILE_URL} target="_blank">
+        <a href={PROFILE_URL} target="_blank" rel="noopener noreferrer">
           Yago Pessoa
         </a>
         .
         <br />
         UI components inspired by{' '}
-        <a href={UI_URL} target="_blank">
+        <a href={UI_URL} target="_blank" rel="noopener noreferrer">
           Toxin UI Kit
         </a>
         .
