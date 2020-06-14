@@ -1,25 +1,19 @@
 import React from 'react';
 import { IRepository } from '../interfaces';
+import { Card, Title, Body, Button, Caption } from './Components.styles';
 
 const Repository: React.FC<IRepository> = ({ name, description, html_url }) => {
+  const handleButtonClick = () => window.open(html_url);
   return (
-    <div>
-      <strong>{name}</strong>
-      <br />
+    <Card>
+      <Title>{name}</Title>
       {description ? (
-        <p>{description}</p>
+        <Body>{description}</Body>
       ) : (
-        <p>
-          <i>No description.</i>
-        </p>
+        <Caption>No description.</Caption>
       )}
-      <a href={html_url} target="_blank" rel="noopener noreferrer">
-        View
-      </a>
-      <br />
-      <br />
-      <br />
-    </div>
+      <Button onClick={handleButtonClick}>View</Button>
+    </Card>
   );
 };
 

@@ -2,6 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { IRepository } from './interfaces';
 import Repository from './components/Repository';
 import api from './services/api';
+import {
+  Button,
+  TextInput,
+  Caption,
+  Body,
+  GlobalStyle,
+  Row,
+  Footer,
+} from './components/Components.styles';
+
+const PROFILE_URL = 'https://github.com/yagopessoa';
+const UI_URL =
+  'https://www.figma.com/file/ahJvzfQCeiN6EA3nqFdrY0/Toxin-UI-Kit?node-id=1%3A259';
 
 const WAIT_INTERVAL = 400;
 
@@ -20,7 +33,10 @@ function App() {
           setRepositories(response.data);
           setLoading(false);
         })
-        .catch(() => setLoading(false));
+        .catch(() => {
+          setRepositories([]);
+          setLoading(false);
+        });
     }
   }, [user]);
 
@@ -40,45 +56,64 @@ function App() {
     if (user) {
       return count > 0 ? (
         <div>
-          <p>Repositories found: {count}</p>
+          <br />
+          <Body>
+            Repositories found: <b>{count}</b>
+          </Body>
           <br />
           {repositories.map((repository) => (
             <Repository key={repository.id} {...repository} />
           ))}
         </div>
       ) : (
-        <p>
-          <i>No repositories found for this user.</i>
-        </p>
+        <>
+          <br />
+          <Caption>No repositories found for this user.</Caption>
+        </>
       );
     }
     return (
-      <p>
-        <i>Search for an user to see its repositories.</i>
-      </p>
+      <>
+        <br />
+        <Caption>Search for an user to see its repositories.</Caption>
+      </>
     );
   };
 
   return (
     <>
-      <input
-        type="text"
-        placeholder="Type user name here"
-        value={userInput}
-        onChange={(event) => setUserInput(event.target.value)}
-      />
-      <br />
-      <br />
-      <button onClick={handleClear}>Clear</button>
-      <br />
-      <br />
+      <GlobalStyle />
+      <h1>Github Repos Listing</h1>
+      <Row>
+        <TextInput
+          type="text"
+          placeholder="Type username here"
+          value={userInput}
+          onChange={(event) => setUserInput(event.target.value)}
+        />
+        <Button onClick={handleClear}>Clear</Button>
+      </Row>
       {loading ? (
-        <p>
-          <i>Loading...</i>
-        </p>
+        <>
+          <br />
+          <Caption>Loading...</Caption>
+        </>
       ) : (
         renderRepositories()
       )}
+      <Footer>
+        Coded by{' '}
+        <a href={PROFILE_URL} target="_blank">
+          Yago Pessoa
+        </a>
+        .
+        <br />
+        UI components inspired by{' '}
+        <a href={UI_URL} target="_blank">
+          Toxin UI Kit
+        </a>
+        .
+      </Footer>
     </>
   );
 }
